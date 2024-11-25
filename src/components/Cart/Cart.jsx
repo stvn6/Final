@@ -12,7 +12,8 @@ const Cart = () => {
                     <CartItem key={index} {...item} />
                 ))}
             </div>
-        </div>
+ </div>
     );
 };
+
 export default Cart;

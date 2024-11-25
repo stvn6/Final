@@ -92,10 +92,14 @@ export default function ItemDetail() {
                     <p className='text-[20px] my-[20px]'>Precio Total: ${precioTotal} CLP</p>
 
                     <button
-                        onClick={handleAddToCart} // Asignar la función handleAddToCart
-                        className='bg-[#171e27] text-[#ffffff] text-[20px] px-[20px] py-[5px] hover:bg-[#172625]'>
-                        Agregar al Carro
-                    </button>
+    onClick={(event) => {
+        event.preventDefault(); // Prevenir el comportamiento predeterminado
+        addToCart(id); // Llama a la función de agregar al carrito
+    }}
+    className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
+>
+    Agregar al carrito
+</button>
                 </div>
             </div>
         </div>
