@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../store/useCart";
 
-export default function Items({ id, name, price, img }) {
+export default function Item ({ id, name, price, img }) {
     const { addToCart } = useCart(); // Hook para agregar productos al carrito
 
     return (

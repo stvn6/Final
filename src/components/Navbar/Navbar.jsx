@@ -61,7 +61,7 @@ const Navbar = () => {
                                 <FaShoppingCart className="text-2xl" />
                                 <span
                                     className="absolute -top-3 -right-3 bg-primary text-white text-xs rounded-full w-5 h-5 flex justify-center items-center">
-                                    {totalQuantity > 0 ? totalQuantity : ''} {/* Mostrar la cantidad si es mayor a 0 */}
+                                    {totalQuantity >= 0 ? totalQuantity : ''} {/* Mostrar la cantidad si es mayor a 0 */}
                                 </span>
                             </button>
                         </Link>

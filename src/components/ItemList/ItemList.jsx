@@ -1,4 +1,4 @@
-import Item from "../Item/Item";
+import Item from "../Item/item.jsx";
 import { getProducts } from "../../data/asyncMock";
 import { useEffect, useState } from "react";
 import Loading from "../Loading/Loading.jsx";
