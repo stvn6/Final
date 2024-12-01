@@ -1,17 +1,10 @@
 import { create } from "zustand";
-import { products } from "../data/asyncMock.jsx"; // Importa 'initProducts' directamente
+import { products } from "../data/asyncMock.jsx"; // Importa los productos iniciales
 
-// Estado inicial de la tienda
-export const useCart = create((set, get) => ({
+export const useCart = create((set) => ({
     products: products, // Lista inicial de productos
     cartItems: [], // Carrito vacío al iniciar
     totalPrice: 0, // Precio total inicial
-
-    // Función para calcular el precio total
-    calculateTotalPrice: () => {
-        const total = get().cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        return total;
-    },
 
     addToCart: (productId) =>
         set((state) => {
@@ -23,27 +16,53 @@ export const useCart = create((set, get) => ({
                 );
 
                 if (cartItem) {
-                    // Si el producto ya está en el carrito, aumenta la cantidad
-                    const updatedQuantity = cartItem.quantity + 1;
+                    // Verificar si la cantidad en el carrito alcanzó el stock disponible
+                    if (cartItem.quantity >= product.stock) {
+                        alert("No puedes agregar más unidades, alcanzaste el stock disponible.");
+                        return state;
+                    }
+
+                    // Si no se alcanza el límite, aumentar la cantidad
                     const updatedCartItems = state.cartItems.map((cartItem) =>
                         cartItem.id === productId
-                            ? { ...cartItem, quantity: updatedQuantity }
+                            ? { ...cartItem, quantity: cartItem.quantity + 1 }
                             : cartItem
+                    );
+
+                    // Recalcular el precio total
+                    const updatedTotalPrice = updatedCartItems.reduce(
+                        (acc, item) => acc + item.price * item.quantity,
+                        0
                     );
 
                     return {
                         cartItems: updatedCartItems,
-                        totalPrice: state.calculateTotalPrice(), // Recalcular el precio total
+                        totalPrice: updatedTotalPrice,
                     };
                 } else {
-                    // Si el producto no está en el carrito, agrégalo
-                    const updatedCartItems = [...state.cartItems, { ...product, quantity: 1 }];
-                    return {
-                        cartItems: updatedCartItems,
-                        totalPrice: state.calculateTotalPrice(), // Recalcular el precio total
-                    };
+                    // Si el producto no está en el carrito, agrégalo (si hay stock)
+                    if (product.stock > 0) {
+                        const updatedCartItems = [
+                            ...state.cartItems,
+                            { ...product, quantity: 1 },
+                        ];
+
+                        const updatedTotalPrice = updatedCartItems.reduce(
+                            (acc, item) => acc + item.price * item.quantity,
+                            0
+                        );
+
+                        return {
+                            cartItems: updatedCartItems,
+                            totalPrice: updatedTotalPrice,
+                        };
+                    } else {
+                        alert("Este producto está fuera de stock.");
+                        return state;
+                    }
                 }
             }
+
             return state; // Retorna el estado si no se encuentra el producto
         }),
 
@@ -63,21 +82,23 @@ export const useCart = create((set, get) => ({
                         ...itemToRemove,
                         quantity: itemToRemove.quantity - 1,
                     };
-
-                    return {
-                        cartItems: updatedCartItems,
-                        totalPrice: state.calculateTotalPrice(), // Recalcular el precio total
-                    };
                 } else {
                     // Si es la última unidad, eliminar el producto del carrito
                     updatedCartItems.splice(itemIndex, 1);
-
-                    return {
-                        cartItems: updatedCartItems,
-                        totalPrice: state.calculateTotalPrice(), // Recalcular el precio total
-                    };
                 }
+
+                // Recalcular el precio total
+                const updatedTotalPrice = updatedCartItems.reduce(
+                    (acc, item) => acc + item.price * item.quantity,
+                    0
+                );
+
+                return {
+                    cartItems: updatedCartItems,
+                    totalPrice: updatedTotalPrice,
+                };
             }
+
             return state; // Retorna el estado si no se encuentra el producto
         }),
 }));
