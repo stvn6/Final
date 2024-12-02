@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';  // Importamos useNavigate
+import { useParams } from 'react-router-dom'; 
 import { getProductById } from '../../data/asyncMock.jsx';
-import { useCart } from '../../store/useCart';  // Importar useCart
+import { useCart } from '../../store/useCart'; 
 import Loading from "../Loading/Loading.jsx";
 
 export default function ItemDetail() {
     const { productId } = useParams();
-    const { addToCart } = useCart();  // Desestructurar addToCart desde useCart
+    const { addToCart } = useCart();  
     const [product, setProduct] = useState({ product: 0, stock: 0 });
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1);
@@ -31,9 +31,12 @@ export default function ItemDetail() {
     };
 
     const handleAddToCart = (event) => {
-        event.preventDefault();  // Evitar la redirección
-        addToCart(productId, quantity);  // Agregar el producto al carrito
-        // No hacer nada más, para que no redirija
+        event.preventDefault(); 
+        if (quantity <= product.stock) {
+            addToCart(productId, quantity);  // Llama a addToCart pasando el ID y la cantidad
+        } else {
+            alert("No hay suficiente stock para esta cantidad.");
+        }
     };
 
     const precioTotal = product.price * quantity;
@@ -92,14 +95,11 @@ export default function ItemDetail() {
                     <p className='text-[20px] my-[20px]'>Precio Total: ${precioTotal} CLP</p>
 
                     <button
-    onClick={(event) => {
-        event.preventDefault();
-        addToCart(product.id, quantity);
-    }}
-    className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
->
-    Agregar al carrito
-</button>
+                        onClick={handleAddToCart}
+                        className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
+                    >
+                        Agregar al carrito
+                    </button>
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@ import { useCart } from "../../store/useCart";
 import CartItem from "../CartItem/CartItem";
 
 export default function Cart() {
-    const { cartItems, totalPrice, clearCart } = useCart(); // Desestructuramos la función clearCart
+    const { cartItems, totalPrice, clearCart } = useCart(); 
 
     return (
         <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-3xl">

@@ -8,7 +8,7 @@ export default function ItemList({ products: initialProducts }) {
     const [products, setProducts] = useState(initialProducts || []);
     const [loading, setLoading] = useState(!initialProducts);
 
-    const { addToCart } = useCart(); // Accede a la función para agregar al carrito
+    const { addToCart } = useCart(); 
 
     useEffect(() => {
         if (!initialProducts) {

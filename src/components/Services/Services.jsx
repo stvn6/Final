@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Importa Link para la navegación
+import { Link } from 'react-router-dom'; 
 import img1 from "/grano1.png"
 import img2 from "/molido3.png"
 import img3 from "/liofilizado2.png"
