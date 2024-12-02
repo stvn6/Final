@@ -16,20 +16,17 @@ export const useCart = create((set) => ({
                 );
 
                 if (cartItem) {
-                    // Verificar si la cantidad en el carrito alcanzó el stock disponible
                     if (cartItem.quantity >= product.stock) {
                         alert("No puedes agregar más unidades, alcanzaste el stock disponible.");
                         return state;
                     }
 
-                    // Si no se alcanza el límite, aumentar la cantidad
                     const updatedCartItems = state.cartItems.map((cartItem) =>
                         cartItem.id === productId
                             ? { ...cartItem, quantity: cartItem.quantity + 1 }
                             : cartItem
                     );
 
-                    // Recalcular el precio total
                     const updatedTotalPrice = updatedCartItems.reduce(
                         (acc, item) => acc + item.price * item.quantity,
                         0
@@ -40,7 +37,7 @@ export const useCart = create((set) => ({
                         totalPrice: updatedTotalPrice,
                     };
                 } else {
-                    // Si el producto no está en el carrito, agrégalo (si hay stock)
+                
                     if (product.stock > 0) {
                         const updatedCartItems = [
                             ...state.cartItems,
@@ -63,7 +60,7 @@ export const useCart = create((set) => ({
                 }
             }
 
-            return state; // Retorna el estado si no se encuentra el producto
+            return state; 
         }),
 
     removeFromCart: (productId) =>
