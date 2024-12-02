@@ -93,8 +93,8 @@ export default function ItemDetail() {
 
                     <button
     onClick={(event) => {
-        event.preventDefault(); // Prevenir el comportamiento predeterminado
-        addToCart(id); // Llama a la función de agregar al carrito
+        event.preventDefault();
+        addToCart(product.id, quantity);
     }}
     className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
 >

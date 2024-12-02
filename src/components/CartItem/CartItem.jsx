@@ -1,35 +1,45 @@
+import React from "react";
 import { useCart } from "../../store/useCart";
+import { FaPlus, FaMinus, FaTrash } from "react-icons/fa";
 
-export const CartItem = ({ id, name, img, price, quantity }) => {
-    const { removeFromCart } = useCart();
+export default function CartItem({ item }) {
+    const { addToCart, removeFromCart, removeAllFromCart } = useCart();
 
     return (
-        <div className="flex items-center gap-6">
-
-            <div className="relative">
+        <div className="flex items-center justify-between p-4 border-b">
+            <div className="flex items-center">
                 <img
-                    src={img}
-                    alt={name}
-                    className="w-12 h-12 object-cover rounded border border-gray-800"
+                    src={item.img}
+                    alt={item.name}
+                    className="w-16 h-16 rounded"
                 />
-                <span className="absolute top-0 right-0 w-6 h-6 bg-primary/90 text-white text-sm font-bold rounded-full flex items-center justify-center -mt-2 -mr-2">
-          {quantity}
-        </span>
+                <div className="ml-4">
+                    <h3 className="text-lg font-semibold">{item.name}</h3>
+                    <p className="text-gray-500">Precio: ${item.price} CLP</p>
+                </div>
             </div>
-
-            <div className="flex flex-col items-start">
-                <span className="font-bold">{name}</span>
-                <p className="text-sm text-gray-500">
-                    Precio por unidad: <b className="text-black font-bold">${price}</b>
-                </p>
+            <div className="flex items-center space-x-4">
+                <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400 transition"
+                >
+                    <FaMinus />
+                </button>
+                <span className="text-lg">{item.quantity}</span>
+                <button
+                    onClick={() => addToCart(item.id)}
+                    className="bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400 transition"
+                    disabled={item.quantity >= item.stock} // Desactiva el botón si alcanza el stock
+                >
+                    <FaPlus />
+                </button>
+                <button
+                    onClick={() => removeAllFromCart(item.id)}
+                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600 transition"
+                >
+                    <FaTrash />
+                </button>
             </div>
-
-            <button
-                onClick={() => removeFromCart(id)}
-                className="border px-2 py-1 hover:contrast-90 transition bg-red-600 text-white"
-            >
-                Remover
-            </button>
         </div>
     );
-};
+}

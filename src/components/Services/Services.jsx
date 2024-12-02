@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Importa Link para la navegación
-import img1 from "/cafegrano1.png"
-import img2 from "/cafemolido2.jpg"
-import img3 from "/cafeliofilizado4.jpg"
+import img1 from "/grano1.png"
+import img2 from "/molido3.png"
+import img3 from "/liofilizado2.png"
 
 const ServicesData = [
     {

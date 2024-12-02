@@ -9,46 +9,32 @@ export const useCart = create((set) => ({
     addToCart: (productId) =>
         set((state) => {
             const product = state.products.find((item) => item.id === productId);
-
             if (product) {
-                const cartItem = state.cartItems.find(
-                    (cartItem) => cartItem.id === productId
-                );
-
+                const cartItem = state.cartItems.find((cartItem) => cartItem.id === productId);
                 if (cartItem) {
-                    if (cartItem.quantity >= product.stock) {
-                        alert("No puedes agregar más unidades, alcanzaste el stock disponible.");
-                        return state;
-                    }
-
                     const updatedCartItems = state.cartItems.map((cartItem) =>
                         cartItem.id === productId
                             ? { ...cartItem, quantity: cartItem.quantity + 1 }
                             : cartItem
                     );
-
                     const updatedTotalPrice = updatedCartItems.reduce(
                         (acc, item) => acc + item.price * item.quantity,
                         0
                     );
-
                     return {
                         cartItems: updatedCartItems,
                         totalPrice: updatedTotalPrice,
                     };
                 } else {
-                
                     if (product.stock > 0) {
                         const updatedCartItems = [
                             ...state.cartItems,
                             { ...product, quantity: 1 },
                         ];
-
                         const updatedTotalPrice = updatedCartItems.reduce(
                             (acc, item) => acc + item.price * item.quantity,
                             0
                         );
-
                         return {
                             cartItems: updatedCartItems,
                             totalPrice: updatedTotalPrice,
@@ -59,43 +45,28 @@ export const useCart = create((set) => ({
                     }
                 }
             }
-
-            return state; 
+            return state;
         }),
 
     removeFromCart: (productId) =>
         set((state) => {
-            const itemIndex = state.cartItems.findIndex(
-                (cartItem) => cartItem.id === productId
+            const updatedCartItems = state.cartItems.filter(
+                (cartItem) => cartItem.id !== productId
             );
-
-            if (itemIndex !== -1) {
-                const updatedCartItems = [...state.cartItems];
-                const itemToRemove = updatedCartItems[itemIndex];
-
-                if (itemToRemove.quantity > 1) {
-                    // Si hay más de una unidad, disminuir la cantidad
-                    updatedCartItems[itemIndex] = {
-                        ...itemToRemove,
-                        quantity: itemToRemove.quantity - 1,
-                    };
-                } else {
-                    // Si es la última unidad, eliminar el producto del carrito
-                    updatedCartItems.splice(itemIndex, 1);
-                }
-
-                // Recalcular el precio total
-                const updatedTotalPrice = updatedCartItems.reduce(
-                    (acc, item) => acc + item.price * item.quantity,
-                    0
-                );
-
-                return {
-                    cartItems: updatedCartItems,
-                    totalPrice: updatedTotalPrice,
-                };
-            }
-
-            return state; // Retorna el estado si no se encuentra el producto
+            const updatedTotalPrice = updatedCartItems.reduce(
+                (acc, item) => acc + item.price * item.quantity,
+                0
+            );
+            return {
+                cartItems: updatedCartItems,
+                totalPrice: updatedTotalPrice,
+            };
         }),
+
+    // Función para vaciar el carrito
+    clearCart: () =>
+        set(() => ({
+            cartItems: [],
+            totalPrice: 0,
+        })),
 }));

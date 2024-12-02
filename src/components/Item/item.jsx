@@ -1,31 +1,36 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../store/useCart";
 
-export default function Item ({ id, name, price, img }) {
-    const { addToCart } = useCart(); // Hook para agregar productos al carrito
+export default function Item({ id, name, price, img }) {
+    const { addToCart } = useCart();
 
     return (
-        <div className="flex w-[200px] flex-col items-center my-4 p-4 border rounded-lg shadow-md transition-transform hover:scale-105 mb-4">
-            {/* Imagen del producto */}
-            <Link to={`/products/${id}`} className="">
-                <img className="h-40 object-cover rounded-md" src={img} alt="Imagen Producto" />
+        <div className="flex w-[220px] flex-col items-center my-4 p-4 border rounded-lg shadow-lg bg-white transition-transform hover:scale-105 hover:shadow-xl">
+            <Link to={`/products/${id}`} className="mb-3">
+                <img
+                    className="h-40 w-full object-cover rounded-lg shadow-md"
+                    src={img}
+                    alt={`${name}`}
+                />
             </Link>
-
-            {/* Nombre del producto */}
-            <Link to={`/products/${id}`} className="text-lg font-bold my-2 tracking-wide uppercase text-[#404040] hover:text-[rgb(210,105,30)]">
+            <Link
+                to={`/products/${id}`}
+                className="text-lg font-semibold my-2 tracking-wide text-gray-800 hover:text-primary transition-colors"
+            >
                 {name}
             </Link>
 
-            {/* Precio del producto */}
-            <h4 className="text-[18px] font-bold mb-[20px]">${price}</h4>
-
-            {/* Botón para agregar al carrito */}
-            <button
-                onClick={() => addToCart(id)} // Llama a la función de agregar al carrito
-                className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
-            >
-                Agregar al carrito
-            </button>
+            <div className="w-full mt-auto">
+                <h4 className="text-[18px] font-bold mb-4 justify-center items-center text-primary">
+                    ${price.toLocaleString()} CLP
+                </h4>
+                <button
+                    onClick={() => addToCart(id)}
+                    className="bg-primary text-white py-2 px-4 w-full rounded-lg hover:bg-primary/90 transition-shadow shadow-md hover:shadow-lg"
+                >
+                    Agregar al carrito
+                </button>
+            </div>
         </div>
     );
 }
