@@ -31,7 +31,12 @@ export default function ItemDetail() {
     };
 
     const handleAddToCart = () => {
-     addToCart(product.id, quantity)
+        if (quantity > 0 && quantity <= product.stock) {
+            addToCart(product.id, quantity, true); // El tercer parámetro indica que viene desde ItemDetail
+            alert(`Se han añadido ${quantity} unidades de ${product.name} al carrito.`);
+        } else {
+            alert("Cantidad seleccionada no válida o excede el stock disponible.");
+        }
     };
 
     const precioTotal = product.price * quantity;

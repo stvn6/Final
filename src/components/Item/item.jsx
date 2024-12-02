@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../store/useCart";
 
-export default function Item({ id, name, price, img }) {
+export default function Item({ id, name, price, img, stock }) {
     const { addToCart } = useCart();
 
     return (
@@ -24,12 +24,12 @@ export default function Item({ id, name, price, img }) {
                 <h4 className="text-[18px] font-bold mb-4 justify-center items-center text-primary">
                     ${price.toLocaleString()} CLP
                 </h4>
-                <button
-                    onClick={() => addToCart(id)}
-                    className="bg-primary text-white py-2 px-4 w-full rounded-lg hover:bg-primary/90 transition-shadow shadow-md hover:shadow-lg"
-                >
-                    Agregar al carrito
-                </button>
+
+                {/* Indicador de disponibilidad */}
+                <p className={`text-sm ${stock > 0 ? 'text-green-500' : 'text-red-500'} font-semibold`}>
+                    {stock > 0 ? 'Disponible' : 'Fuera de Stock'}
+                </p>
+
             </div>
         </div>
     );

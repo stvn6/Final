@@ -6,18 +6,19 @@ export const useCart = create((set) => ({
     cartItems: [],
     totalPrice: 0,
 
-    addToCart: (productId) =>
+    addToCart: (productId, quantity = 1) =>
         set((state) => {
             const product = state.products.find((item) => item.id === productId);
             if (product) {
                 const cartItem = state.cartItems.find((cartItem) => cartItem.id === productId);
 
                 if (cartItem) {
-                    // Verifica si la cantidad no excede el stock disponible
-                    if (cartItem.quantity < product.stock) {
+                    // Verifica que la cantidad total no exceda el stock
+                    const newQuantity = cartItem.quantity + quantity;
+                    if (newQuantity <= product.stock) {
                         const updatedCartItems = state.cartItems.map((cartItem) =>
                             cartItem.id === productId
-                                ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                                ? { ...cartItem, quantity: newQuantity }
                                 : cartItem
                         );
                         const updatedTotalPrice = updatedCartItems.reduce(
@@ -29,14 +30,14 @@ export const useCart = create((set) => ({
                             totalPrice: updatedTotalPrice,
                         };
                     } else {
-                        alert("No puedes agregar más, alcanzaste el stock disponible.");
+                        alert("No puedes agregar más productos, el stock es insuficiente.");
                         return state;
                     }
                 } else {
-                    if (product.stock > 0) {
+                    if (quantity <= product.stock) {
                         const updatedCartItems = [
                             ...state.cartItems,
-                            { ...product, quantity: 1 },
+                            { ...product, quantity },
                         ];
                         const updatedTotalPrice = updatedCartItems.reduce(
                             (acc, item) => acc + item.price * item.quantity,
@@ -47,7 +48,7 @@ export const useCart = create((set) => ({
                             totalPrice: updatedTotalPrice,
                         };
                     } else {
-                        alert("Este producto está fuera de stock.");
+                        alert("La cantidad seleccionada excede el stock disponible.");
                         return state;
                     }
                 }
@@ -59,10 +60,10 @@ export const useCart = create((set) => ({
         set((state) => {
             const updatedCartItems = state.cartItems.map((cartItem) => {
                 if (cartItem.id === productId && cartItem.quantity > 1) {
-                    return { ...cartItem, quantity: cartItem.quantity - 1 }; // Decrease the quantity
+                    return { ...cartItem, quantity: cartItem.quantity - 1 }; 
                 }
-                return cartItem; // Otherwise, return the item as is
-            }).filter(cartItem => cartItem.quantity > 0); // Remove items with quantity 0
+                return cartItem; 
+            }).filter(cartItem => cartItem.quantity > 0); 
 
             const updatedTotalPrice = updatedCartItems.reduce(
                 (acc, item) => acc + item.price * item.quantity,
@@ -77,7 +78,6 @@ export const useCart = create((set) => ({
 
     removeAllFromCart: (productId) =>
         set((state) => {
-            // Filtrar el carrito para eliminar todas las cantidades de un producto
             const updatedCartItems = state.cartItems.filter(
                 (cartItem) => cartItem.id !== productId
             );

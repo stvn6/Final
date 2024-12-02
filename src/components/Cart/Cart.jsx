@@ -43,8 +43,11 @@ export default function Cart() {
                     </div>
                 </>
             ) : (
-                // Aquí ya no hay contenido cuando el carrito está vacío
-                null
+                <div className="text-center py-8">
+                    <p className="text-lg font-semibold text-gray-600">
+                        Tu carrito está vacío. ¡Añade productos para comenzar a comprar!
+                    </p>
+                </div>
             )}
         </div>
     );
