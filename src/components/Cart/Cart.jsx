@@ -43,15 +43,8 @@ export default function Cart() {
                     </div>
                 </>
             ) : (
-                <div className="text-center">
-                    <p className="text-gray-500">Tu carrito está vacío.</p>
-                    <button
-                        className="bg-primary text-white py-2 px-4 rounded-lg mt-4 hover:bg-primary/80 transition"
-                        onClick={() => window.location.href = "/products"}
-                    >
-                        Ver Productos
-                    </button>
-                </div>
+                // Aquí ya no hay contenido cuando el carrito está vacío
+                null
             )}
         </div>
     );

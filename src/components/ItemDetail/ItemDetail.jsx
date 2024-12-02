@@ -30,13 +30,8 @@ export default function ItemDetail() {
         }
     };
 
-    const handleAddToCart = (event) => {
-        event.preventDefault(); 
-        if (quantity <= product.stock) {
-            addToCart(productId, quantity);  // Llama a addToCart pasando el ID y la cantidad
-        } else {
-            alert("No hay suficiente stock para esta cantidad.");
-        }
+    const handleAddToCart = () => {
+     addToCart(product.id, quantity)
     };
 
     const precioTotal = product.price * quantity;
