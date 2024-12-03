@@ -35,7 +35,7 @@ const Footer = () => {
                     <div className="py-8 px-4">
                         <a href="#" className="font-semibold tracking-wider text-2xl sm:text-3xl font-cursive">Juan Valdez</a>
                         <p className="pt-4 ">
-                            Disfruta del mejor cafe de pais, momentos inolvidables - Tu escape perfecto.
+                            Disfruta del mejor café de pais, momentos inolvidables - Tu escape perfecto.
                         </p>
                         <a href="https://www.youtube.com/JuanValdezChile" target="_blank" className="inline-block bg-[#3d2517] py-2 px-4 mt-5 text-sm rounded-full">Visita nuestro canal de Youtube</a>
                     </div>
