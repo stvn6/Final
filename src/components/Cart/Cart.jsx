@@ -2,9 +2,11 @@ import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../store/useCart";
 import CartItem from "../CartItem/CartItem";
+import { useNavigate } from "react-router-dom"; 
 
 export default function Cart() {
     const { cartItems, totalPrice, clearCart } = useCart(); 
+    const navigate = useNavigate(); 
 
     return (
         <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-3xl">
@@ -29,7 +31,7 @@ export default function Cart() {
                         {/* Botones para vaciar carrito y finalizar compra */}
                         <div className="flex gap-4 justify-end mt-4">
                             <button
-                                onClick={clearCart} // Llama a la función clearCart
+                                onClick={clearCart} 
                                 className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition"
                             >
                                 Vaciar carrito
@@ -44,9 +46,15 @@ export default function Cart() {
                 </>
             ) : (
                 <div className="text-center py-8">
-                    <p className="text-lg font-semibold text-gray-600">
+                    <p className="text-lg font-semibold text-gray-600 mb-4">
                         Tu carrito está vacío. ¡Añade productos para comenzar a comprar!
                     </p>
+                    <button
+                        onClick={() => navigate("/products")} 
+                        className="bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
+                    >
+                        Ver productos
+                    </button>
                 </div>
             )}
         </div>
