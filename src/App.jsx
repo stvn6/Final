@@ -4,6 +4,7 @@ import Footer from './components/Footer/Footer.jsx';
 import Home from './components/Home/Home.jsx';
 import Services from './components/Services/Services.jsx';
 import About from './components/About/About.jsx';
+import ContactPage from './components/Contact/Contact.jsx';
 import Products from './components/Products/Products.jsx';
 import ProductsCategory from "./components/Category/Category.jsx";
 import ItemDetail from "./components/ItemDetail/ItemDetail.jsx";
@@ -31,6 +32,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/services" element={<Services />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<ContactPage />} />
                     <Route path="/products" element={<Products />} />
                     <Route path='/products/:productId' element={<ItemDetail />} />
                     <Route path='/category/:categoryId' element={<ProductsCategory />} />
