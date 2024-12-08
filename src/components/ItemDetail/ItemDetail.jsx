@@ -94,11 +94,10 @@ export default function ItemDetail() {
                     <p className='text-[20px] my-[20px]'>Precio: ${product.price} CLP por unidad</p>
                     <p className='text-[20px] my-[20px]'>Precio Total: ${precioTotal} CLP</p>
 
-                    <button
-                        onClick={handleAddToCart}
-                        className="bg-primary/100 text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition"
-                    >
-                        Agregar al carrito
+                    <button onClick={handleAddToCart} class="cursor-pointer font-semibold overflow-hidden relative z-100 border border-primary group px-8 py-2">
+                    <span class="relative z-10 text-primary group-hover:text-white text-xl duration-500">Agregar al Carrito</span>
+                    <span class="absolute w-full h-full bg-primary -left-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:left-0 duration-500"></span>
+                    <span class="absolute w-full h-full bg-primary -right-32 top-0 -rotate-45 group-hover:rotate-0 group-hover:right-0 duration-500"></span>
                     </button>
                 </div>
             </div>

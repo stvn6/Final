@@ -28,19 +28,36 @@ export default function Cart() {
                         <h2 className="text-xl font-bold">
                             Total: ${totalPrice.toLocaleString()} CLP
                         </h2>
-                        {/* Botones para vaciar carrito y finalizar compra */}
+
                         <div className="flex gap-4 justify-end mt-4">
-                            <button
-                                onClick={clearCart} 
-                                className="bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-500 transition"
-                            >
-                                Vaciar carrito
-                            </button>
-                            <button
-                                className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-500 transition"
-                            >
-                                Finalizar Compra
-                            </button>
+                        <button onClick={clearCart}
+                        class="flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#be123c] hover:shadow-xl hover:shadow-red-500 hover:scale-105 duration-300 hover:from-[#be123c] hover:to-[#fb7185]">Vaciar 🛒
+                        <svg viewBox="0 0 15 15" class="w-5 fill-white"><svg class="w-6 h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path
+                        stroke-linejoin="round"
+                        stroke-linecap="round"></path>
+                        </svg>
+                        Button
+                        </svg>
+                        </button>
+                        <button
+                            class="flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#14b8a6] via-[#059669] to-[#047857] hover:shadow-xl hover:shadow-green-500 hover:scale-105 duration-300 hover:from-[#047857] hover:to-[#14b8a6]"
+                            >Finalizar
+                        <svg class="w-5 fill-white" viewBox="0 0 15 15">
+                        <svg
+                            class="w-6 h-6"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            stroke-linejoin="round"
+                            stroke-linecap="round"
+                        ></path>
+                        </svg>
+                    </svg>
+                    </button>
+
                         </div>
                     </div>
                 </>
