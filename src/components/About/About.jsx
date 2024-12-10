@@ -1,6 +1,6 @@
 import React from "react";
 import { FaLeaf, FaHandshake, FaAward, FaCoffee } from "react-icons/fa";
-import cosecha from '../../../public/cosecha.jpg'
+import cosecha from '/cosecha.jpg'
 export default function AboutPage() {
     const values = [
         {
