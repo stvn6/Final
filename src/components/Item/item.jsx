@@ -25,7 +25,6 @@ export default function Item({ id, name, price, img, stock }) {
                     ${price.toLocaleString()} CLP
                 </h4>
 
-                {/* Indicador de disponibilidad */}
                 <p className={`text-sm ${stock > 0 ? 'text-green-500' : 'text-red-500'} font-semibold`}>
                     {stock > 0 ? 'Disponible' : 'Fuera de Stock'}
                 </p>

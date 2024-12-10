@@ -29,7 +29,7 @@ export default function CartItem({ item }) {
                 <button
                     onClick={() => addToCart(item.id)}
                     className="bg-gray-300 text-gray-700 p-2 rounded hover:bg-gray-400 transition"
-                    disabled={item.quantity >= item.stock} // Desactiva el botón si alcanza el stock
+                    disabled={item.quantity >= item.stock} 
                 >
                     <FaPlus />
                 </button>

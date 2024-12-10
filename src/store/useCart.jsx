@@ -13,7 +13,6 @@ export const useCart = create((set) => ({
                 const cartItem = state.cartItems.find((cartItem) => cartItem.id === productId);
 
                 if (cartItem) {
-                    // Verifica que la cantidad total no exceda el stock
                     const newQuantity = cartItem.quantity + quantity;
                     if (newQuantity <= product.stock) {
                         const updatedCartItems = state.cartItems.map((cartItem) =>
